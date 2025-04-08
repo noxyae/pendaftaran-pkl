@@ -31,7 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sssss", $email, $password, $fullname, $phone, $birthdate);
 
         if ($stmt->execute()) {
-            header("Location: index.php");
+            // Redirect ke halaman login setelah berhasil mendaftar
+            header("Location: index.php"); // Arahkan ke halaman login
             exit();
         } else {
             echo "Error: " . $stmt->error;

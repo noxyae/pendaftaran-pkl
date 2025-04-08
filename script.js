@@ -5,15 +5,24 @@ document.getElementById('LoginForm').addEventListener('submit', function(event) 
     const password = document.getElementById('password').value;
 
     // Logika untuk memeriksa akun terdaftar
-    const registeredUsers = ['email1@example.com', 'email2@example.com']; // Contoh data user terdaftar
-
-    if (!registeredUsers.includes(email)) {
-        showNotification('Akun belum terdaftar.');
-    } else {
-        document.getElementById('notification').textContent = '';
-        // Tambahkan logika untuk login di sini
-        document.getElementById('LoginForm').submit(); // Submit form jika terdaftar
-    }
+    fetch('check_user.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.exists) {
+            showNotification('Akun belum terdaftar.');
+        } else {
+            document.getElementById('notification').textContent = '';
+            // Submit form jika terdaftar
+            document.getElementById('LoginForm').submit(); 
+        }
+    })
+    .catch(error => console.error('Error:', error));
 });
 
 // Fungsi untuk menampilkan notifikasi

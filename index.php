@@ -1,12 +1,12 @@
 <?php
-session_start(); // Mulai sesi untuk menyimpan status login
+session_start(); // Mulai sesi
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     // Koneksi ke database
-    $conn = new mysqli('localhost', 'root', '', 'user_management'); // Pastikan database ini ada
+    $conn = new mysqli('localhost', 'root', '', 'user_management');
 
     // Cek koneksi
     if ($conn->connect_error) {
